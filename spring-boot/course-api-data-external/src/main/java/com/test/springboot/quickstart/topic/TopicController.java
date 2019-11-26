@@ -3,6 +3,8 @@ package com.test.springboot.quickstart.topic;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,29 +20,26 @@ public class TopicController {
 	@Autowired
 	private TopicService topicService;
 	
-	//@RequestMapping("/topics")
 	@GetMapping("/topics")
 	public List<Topic> getAllTopics() {
 
 		return topicService.getAllTopics();
 	}
 	
-	//@RequestMapping("/topics/{id}")
 	@GetMapping("/topics/{id}")
 	public Optional<Topic> getTopic(@PathVariable String id) {
 		
 		return topicService.getTopic(id);
 	}
 	
-	//@RequestMapping(method=RequestMethod.POST, value="/topics")
 	@PostMapping("/topics")
-	public void addTopic(@RequestBody Topic topic) {
+	public void addTopic(@Valid @RequestBody Topic topic) {
 		
 		topicService.addTopic(topic);
 	}
 	
 	@PutMapping("/topics/{id}")
-	public void updateTopic(@RequestBody Topic topic, @PathVariable String id) {
+	public void updateTopic(@Valid @RequestBody Topic topic, @PathVariable String id) {
 		    
 		topicService.updateTopic(id, topic);
 	}

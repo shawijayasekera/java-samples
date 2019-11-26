@@ -2,13 +2,19 @@ package com.test.springboot.quickstart.topic;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Topic {
 
 	@Id
+	@NotBlank(message = "id")
 	private String id;
+	
+	@NotBlank(message = "name")
 	private String name;
+	
+	@NotBlank(message = "description")
 	private String description;
 
 	public Topic() {
