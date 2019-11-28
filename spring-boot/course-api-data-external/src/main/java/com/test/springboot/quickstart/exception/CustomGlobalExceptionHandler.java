@@ -15,6 +15,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Multimaps;
+import com.test.springboot.quickstart.dto.ErrorDTO;
 
 @ControllerAdvice
 public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -28,7 +29,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 		ServiceException serviceException = new ServiceException();
 
 		//Multimap<String, Multimap<String, String>> errorMap = Multimaps.synchronizedMultimap(HashMultimap.create());
-		Multimap<String, Multimap<String, String>> errorMap = ArrayListMultimap.create();
+		Multimap<String, ErrorDTO> errorMap = ArrayListMultimap.create();
 
 		List<FieldError> errorCodes = ex.getBindingResult().getFieldErrors();
 		for (FieldError fieldError : errorCodes) {
@@ -38,17 +39,19 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 			String rejectedValue = String.valueOf(fieldError.getRejectedValue());
 
 			//Multimap<String, String> innerMap = Multimaps.synchronizedMultimap(HashMultimap.create());
-			Multimap<String, String> innerMap = ArrayListMultimap.create();
-			innerMap.put(errorField, rejectedValue);
-			errorMap.put(error, innerMap);
+			ErrorDTO errorDTO = new ErrorDTO();
+			errorDTO.setErrorField(errorField);
+			errorDTO.setRejectedValue(rejectedValue);
+			
+			errorMap.put(error, errorDTO);
 
 			System.out.println(rejectedValue);
 		}
 
-		@SuppressWarnings("unchecked")
-		Collection<Multimap<String, String>> blankMap = errorMap.get("NotBlank");
 		
-		List<String> blankErrorFieldList = new ArrayList<String>(blankMap.keySet());
+		Collection<ErrorDTO> dto = errorMap.get("NotBlank");
+		
+		List<String> blankErrorFieldList = new ArrayList<String>(dto.keySet());
 
 		@SuppressWarnings("unchecked")
 		Multimap<String, String> nullMap = (Multimap<String, String>) errorMap.get("NotNull");
