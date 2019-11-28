@@ -1,4 +1,4 @@
-package com.test.springboot.quickstart.dto;
+package com.test.springboot.quickstart.exception;
 
 public class ErrorDTO {
 	private String errorField;

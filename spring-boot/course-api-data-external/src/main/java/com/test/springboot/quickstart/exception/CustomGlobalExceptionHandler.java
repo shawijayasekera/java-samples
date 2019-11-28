@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.google.common.collect.Multimaps;
-import com.test.springboot.quickstart.dto.ErrorDTO;
 
 @ControllerAdvice
 public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -24,11 +21,12 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 
+		// construct exception message object
 		CommonErrorMessage commonErrorMessage = new CommonErrorMessage();
 		RequestError requestError = new RequestError();
 		ServiceException serviceException = new ServiceException();
 
-		//Multimap<String, Multimap<String, String>> errorMap = Multimaps.synchronizedMultimap(HashMultimap.create());
+		// construct Multimap for store errors
 		Multimap<String, ErrorDTO> errorMap = ArrayListMultimap.create();
 
 		List<FieldError> errorCodes = ex.getBindingResult().getFieldErrors();
@@ -38,47 +36,62 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 			String errorField = fieldError.getField();
 			String rejectedValue = String.valueOf(fieldError.getRejectedValue());
 
-			//Multimap<String, String> innerMap = Multimaps.synchronizedMultimap(HashMultimap.create());
 			ErrorDTO errorDTO = new ErrorDTO();
 			errorDTO.setErrorField(errorField);
 			errorDTO.setRejectedValue(rejectedValue);
-			
-			errorMap.put(error, errorDTO);
 
-			System.out.println(rejectedValue);
+			errorMap.put(error, errorDTO);
 		}
 
-		
-		Collection<ErrorDTO> dto = errorMap.get("NotBlank");
-		
-		List<String> blankErrorFieldList = new ArrayList<String>(dto.keySet());
+		// collect NotBlank violation errors
+		Collection<ErrorDTO> notBlankerrorDTOCollection = errorMap.get("NotBlank");
+		List<String> blankErrorFieldList = new ArrayList<String>();
+		for (ErrorDTO errorDTO : notBlankerrorDTOCollection) {
 
-		@SuppressWarnings("unchecked")
-		Multimap<String, String> nullMap = (Multimap<String, String>) errorMap.get("NotNull");
-		List<String> nullErrorFieldList = new ArrayList<String>(nullMap.keySet());
+			blankErrorFieldList.add(errorDTO.getErrorField());
+		}
 
-		@SuppressWarnings("unchecked")
-		Multimap<String, String> emptyMap = (Multimap<String, String>) errorMap.get("NotEmpty");
-		List<String> emptyErrorFieldList = new ArrayList<String>(emptyMap.keySet());
+		// collect NotNull violation errors
+		Collection<ErrorDTO> notNullErrorDTOCollection = errorMap.get("NotNull");
+		List<String> nullErrorFieldList = new ArrayList<String>();
+		for (ErrorDTO errorDTO : notNullErrorDTOCollection) {
 
+			nullErrorFieldList.add(errorDTO.getErrorField());
+		}
+
+		// collect NotEmpty violation errors
+		Collection<ErrorDTO> notEmptyErrorDTOCollection = errorMap.get("NotEmpty");
+		List<String> emptyErrorFieldList = new ArrayList<String>();
+		for (ErrorDTO errorDTO : notEmptyErrorDTOCollection) {
+
+			emptyErrorFieldList.add(errorDTO.getErrorField());
+		}
+
+		// merge all NotBlank, NotNull and NotEmpty violation error fields to single
+		// list
 		List<String> missingParameterList = new ArrayList<String>();
 		missingParameterList.addAll(blankErrorFieldList);
 		missingParameterList.addAll(nullErrorFieldList);
 		missingParameterList.addAll(emptyErrorFieldList);
 
-		@SuppressWarnings("unchecked")
-		Multimap<String, String> msisdnMap = (Multimap<String, String>) errorMap.get("MSISDN");
-		// List<String> msisdnErrorFieldList = new
-		// ArrayList<String>(msisdnMap.keySet());
-		List<String> msisdnRejectedValueList = new ArrayList<String>(msisdnMap.values());
+		// collect MSISDN violation errors
+		Collection<ErrorDTO> msisdnErrorDTOCollection = errorMap.get("MSISDN");
+		List<String> msisdnRejectedValueList = new ArrayList<String>();
+		for (ErrorDTO errorDTO : msisdnErrorDTOCollection) {
 
-		@SuppressWarnings("unchecked")
-		Multimap<String, String> decimalMinMap = (Multimap<String, String>) errorMap.get("DecimalMin");
-		// List<String> decimalMinErrorFieldList = new
-		// ArrayList<String>(decimalMinMap.keySet());
-		List<String> decimalMinRejectedValueList = new ArrayList<String>(msisdnMap.values());
+			msisdnRejectedValueList.add(errorDTO.getRejectedValue());
+		}
 
-		if (blankMap.size() > 0 || nullMap.size() > 0 || emptyMap.size() > 0) {
+		// collect DecimalMin violation errors
+		Collection<ErrorDTO> decimalMinErrorDTOCollection = errorMap.get("DecimalMin");
+		List<String> decimalMinRejectedValueList = new ArrayList<String>();
+		for (ErrorDTO errorDTO : decimalMinErrorDTOCollection) {
+
+			decimalMinRejectedValueList.add(errorDTO.getRejectedValue());
+		}
+
+		if (notBlankerrorDTOCollection.size() > 0 || notNullErrorDTOCollection.size() > 0
+				|| notEmptyErrorDTOCollection.size() > 0) {
 
 			if (missingParameterList.size() > 1) {
 
@@ -93,14 +106,14 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 				serviceException.setText("Invalid input value for message part %1");
 				serviceException.setVariables("Missing mandatory parameter: " + missingParameterList.get(0));
 			}
-		} else if (msisdnMap.size() > 0) {
+		} else if (msisdnErrorDTOCollection.size() > 0) {
 
 			String rejectedMSISDNCommaSeparated = String.join(",", msisdnRejectedValueList);
 
 			serviceException.setMessageId("SVC0004");
 			serviceException.setText("No valid addresses provided in message part %1");
 			serviceException.setVariables(rejectedMSISDNCommaSeparated);
-		} else if (decimalMinMap.size() > 0) {
+		} else if (decimalMinErrorDTOCollection.size() > 0) {
 
 			String rejectedDecimalMinCommaSeparated = String.join(",", decimalMinRejectedValueList);
 
