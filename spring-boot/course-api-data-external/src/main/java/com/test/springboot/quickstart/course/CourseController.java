@@ -34,14 +34,14 @@ public class CourseController {
 	@PostMapping("/topics/{topicId}/courses")
 	public void addTopic(@RequestBody Course course, @PathVariable String topicId) {
 		
-		course.setTopic(new Topic(topicId, "", ""));
+		course.setTopic(new Topic(topicId, "", "", 1.0));
 		courseService.addCourse(course);
 	}
 	
 	@PutMapping("/topics/{topicId}/courses/{id}")
 	public void updateTopic(@RequestBody Course course, @PathVariable String topicId, @PathVariable String id) {
 		
-		course.setTopic(new Topic(topicId, "", ""));
+		course.setTopic(new Topic(topicId, "", "", 1.0));
 		courseService.updateCourse(course);
 	}
 	

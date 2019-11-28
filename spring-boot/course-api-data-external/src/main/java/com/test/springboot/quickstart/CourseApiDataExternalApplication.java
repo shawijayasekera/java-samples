@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CourseApiDataExternalApplication {
 
 	public static void main(String[] args) {
+		
 		SpringApplication.run(CourseApiDataExternalApplication.class, args);
 	}
 }
