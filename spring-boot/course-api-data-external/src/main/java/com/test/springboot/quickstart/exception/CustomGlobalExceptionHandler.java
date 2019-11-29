@@ -82,12 +82,24 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 			msisdnRejectedValueList.add(errorDTO.getRejectedValue());
 		}
 
-		// collect DecimalMin violation errors
-		Collection<ErrorDTO> decimalMinErrorDTOCollection = errorMap.get("DecimalMin");
-		List<String> decimalMinRejectedValueList = new ArrayList<String>();
-		for (ErrorDTO errorDTO : decimalMinErrorDTOCollection) {
+		// collect GEZero violation errors
+		Collection<ErrorDTO> geZeroErrorDTOCollection = errorMap.get("GEZero");
+		List<String> geZeroErrorFieldList = new ArrayList<String>();
+		List<String> geZeroRejectedValueList = new ArrayList<String>();
+		for (ErrorDTO errorDTO : geZeroErrorDTOCollection) {
 
-			decimalMinRejectedValueList.add(errorDTO.getRejectedValue());
+			geZeroErrorFieldList.add(errorDTO.getErrorField());
+			geZeroRejectedValueList.add(errorDTO.getRejectedValue());
+		}
+
+		// collect GTZero violation errors
+		Collection<ErrorDTO> gtZeroErrorDTOCollection = errorMap.get("GTZero");
+		List<String> gtZeroErrorFieldList = new ArrayList<String>();
+		List<String> gtZeroRejectedValueList = new ArrayList<String>();
+		for (ErrorDTO errorDTO : gtZeroErrorDTOCollection) {
+
+			gtZeroErrorFieldList.add(errorDTO.getErrorField());
+			gtZeroRejectedValueList.add(errorDTO.getRejectedValue());
 		}
 
 		if (notBlankerrorDTOCollection.size() > 0 || notNullErrorDTOCollection.size() > 0
@@ -95,11 +107,11 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 
 			if (missingParameterList.size() > 1) {
 
-				String errorsCommaSeparated = String.join(",", missingParameterList);
+				String errorFieldCommaSeparated = String.join(",", missingParameterList);
 
 				serviceException.setMessageId("SVC0002");
 				serviceException.setText("Invalid input value for message part %1");
-				serviceException.setVariables("Missing mandatory parameters: " + errorsCommaSeparated);
+				serviceException.setVariables("Missing mandatory parameters: " + errorFieldCommaSeparated);
 			} else {
 
 				serviceException.setMessageId("SVC0002");
@@ -113,13 +125,23 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 			serviceException.setMessageId("SVC0004");
 			serviceException.setText("No valid addresses provided in message part %1");
 			serviceException.setVariables(rejectedMSISDNCommaSeparated);
-		} else if (decimalMinErrorDTOCollection.size() > 0) {
+		} else if (geZeroErrorDTOCollection.size() > 0) {
 
-			String rejectedDecimalMinCommaSeparated = String.join(",", decimalMinRejectedValueList);
+			String errorFieldGEZeroCommaSeparated = String.join(",", geZeroErrorFieldList);
+			//String rejectedGEZeroCommaSeparated = String.join(",", geZeroRejectedValueList);
 
 			serviceException.setMessageId("SVC0002");
 			serviceException.setText("Invalid input value for message part %1");
-			serviceException.setVariables(rejectedDecimalMinCommaSeparated);
+			serviceException.setVariables(
+					errorFieldGEZeroCommaSeparated + " should be a whole or two digit decimal positive number ");
+		} else if (gtZeroErrorDTOCollection.size() > 0) {
+
+			//String errorFieldGTZeroCommaSeparated = String.join(",", gtZeroErrorFieldList);
+			//String rejectedGTZeroCommaSeparated = String.join(",", gtZeroRejectedValueList);
+
+			serviceException.setMessageId("SVC0007");
+			serviceException.setText("Invalid charging information");
+			serviceException.setVariables("");
 		}
 
 		requestError.setServiceException(serviceException);

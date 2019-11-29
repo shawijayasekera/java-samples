@@ -2,37 +2,35 @@ package com.test.springboot.quickstart.topic;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
+import com.test.springboot.quickstart.validation.GEZero;
 import com.test.springboot.quickstart.validation.MSISDN;
 
 @Entity
 public class Topic {
 
 	@Id
-	@NotBlank(message = "id")
+	@NotBlank
 	private String id;
 
-	@NotBlank(message = "name")
+	@NotBlank
 	@MSISDN
 	private String name;
 
-	@NotBlank(message = "description")
+	@NotBlank
 	private String description;
 
-	@NotNull(message = "price")
-	@DecimalMin(value = "1.00", message = "price")
+	@NotNull
+	@GEZero
 	private Double price;
 
 	public Topic() {
 		super();
 	}
 
-	public Topic(@NotBlank(message = "id") String id, @NotBlank(message = "name") String name,
-			@NotBlank(message = "description") String description,
-			@NotBlank(message = "price") @DecimalMin(value = "1.00", message = "price") Double price) {
+	public Topic(@NotBlank String id, @NotBlank @MSISDN String name, @NotBlank String description,
+			@NotNull @GEZero Double price) {
 		super();
 		this.id = id;
 		this.name = name;
