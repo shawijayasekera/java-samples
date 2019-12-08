@@ -52,19 +52,19 @@ public class TopicService {
 
 	private void logAllRequestHeaders() {
 
-		System.out.println(headerDataHolder.getConsumerKey());
-		System.out.println(headerDataHolder.getUserId());
-		System.out.println(headerDataHolder.getContext());
-		System.out.println(headerDataHolder.getApiVersion());
-		System.out.println(headerDataHolder.getApiName());
-		System.out.println(headerDataHolder.getVersion());
-		System.out.println(headerDataHolder.getResource());
-		System.out.println(headerDataHolder.getHttpMethod());
-		System.out.println(headerDataHolder.getHostName());
-		System.out.println(headerDataHolder.getApiPublisher());
-		System.out.println(headerDataHolder.getApplicationName());
-		System.out.println(headerDataHolder.getApplicationId());
-		System.out.println(headerDataHolder.getOperator());
-		System.out.println(headerDataHolder.getRequestId());
+		System.out.println("ConsumerKey : " + headerDataHolder.getConsumerKey());
+		System.out.println("UserId : " + headerDataHolder.getUserId());
+		System.out.println("Context : " + headerDataHolder.getContext());
+		System.out.println("ApiVersion : " + headerDataHolder.getApiVersion());
+		System.out.println("ApiName : " +headerDataHolder.getApiName());
+		System.out.println("Version : " +headerDataHolder.getVersion());
+		System.out.println("Resource : " +headerDataHolder.getResource());
+		System.out.println("HttpMethod : " +headerDataHolder.getHttpMethod());
+		System.out.println("HostName : " +headerDataHolder.getHostName());
+		System.out.println("ApiPublisher : " +headerDataHolder.getApiPublisher());
+		System.out.println("ApplicationName : " +headerDataHolder.getApplicationName());
+		System.out.println("ApplicationId : " +headerDataHolder.getApplicationId());
+		System.out.println("Operator : " +headerDataHolder.getOperator());
+		System.out.println("RequestId : " +headerDataHolder.getRequestId());
 	}
 }
