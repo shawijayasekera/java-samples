@@ -1,4 +1,4 @@
-package com.java.samples.springboot.communication.discovery.movieinfoservice.models;
+package com.java.samples.springboot.communication.discovery.moviecatalogservice.models;
 
 public class Movie {
 

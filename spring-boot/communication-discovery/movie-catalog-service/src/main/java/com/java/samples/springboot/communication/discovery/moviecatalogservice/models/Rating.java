@@ -1,4 +1,4 @@
-package com.java.samples.springboot.communication.discovery.ratingsdataservice.models;
+package com.java.samples.springboot.communication.discovery.moviecatalogservice.models;
 
 public class Rating {
 

@@ -3,6 +3,11 @@ package com.java.samples.springboot.communication.discovery.moviecatalogservice.
 public class CatalogItem {
 
 	private String name;
+
+	public CatalogItem() {
+		super();
+	}
+
 	private String desc;
 	private Integer ratings;
 
