@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
 import com.java.samples.springboot.faulttolerance.resilience.moviecatalogservice.models.CatalogItem;
 import com.java.samples.springboot.faulttolerance.resilience.moviecatalogservice.models.Movie;
 import com.java.samples.springboot.faulttolerance.resilience.moviecatalogservice.models.UserRating;
@@ -28,7 +27,7 @@ public class MovieCatalogResource {
 		// get all rated movie IDs
 		UserRating ratings = restTemplate.getForObject("http://RATINGS-DATA-SERVICE/ratingsdata/users/" + userId, UserRating.class);
 
-		return ratings.getUserRating().stream().map(rating -> {
+		return ratings.getRatings().stream().map(rating -> {
 			
 			// for each movie ID, call movie info service and get details
 			Movie movie = restTemplate.getForObject("http://MOVIE-INFO-SERVICE/movies/" + rating.getMovieId(), Movie.class);
@@ -43,7 +42,7 @@ public class MovieCatalogResource {
 				// this is like you are using asynchronous programming as synchronous way
 			
 			// put them all together
-			return new CatalogItem(movie.getName(), "Test", rating.getRating());
+			return new CatalogItem(movie.getName(), movie.getDescription(), rating.getRating());
 		}).collect(Collectors.toList());
 	}
 }
