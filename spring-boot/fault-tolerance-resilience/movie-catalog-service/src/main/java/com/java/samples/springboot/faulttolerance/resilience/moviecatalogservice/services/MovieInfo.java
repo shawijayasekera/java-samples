@@ -7,6 +7,7 @@ import com.java.samples.springboot.faulttolerance.resilience.moviecatalogservice
 import com.java.samples.springboot.faulttolerance.resilience.moviecatalogservice.models.Movie;
 import com.java.samples.springboot.faulttolerance.resilience.moviecatalogservice.models.Rating;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 
 @Service
 public class MovieInfo {
@@ -14,7 +15,12 @@ public class MovieInfo {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-	@HystrixCommand(fallbackMethod = "getFallbackCatalogItem")
+	@HystrixCommand(fallbackMethod = "getFallbackCatalogItem", 
+					threadPoolKey = "movieInfoPool", // creating separate thread pool for getCatalogItem
+					threadPoolProperties = {
+							@HystrixProperty(name = "coreSize", value = "20"), // allocating 20 threads for movieInfoPool
+							@HystrixProperty(name = "maxQueueSize", value = "10") // how many requests are waiting in the queue to access the threads 
+					})
 	public CatalogItem getCatalogItem(Rating rating) {
 
 		// for each movie ID, call movie info service and get details
