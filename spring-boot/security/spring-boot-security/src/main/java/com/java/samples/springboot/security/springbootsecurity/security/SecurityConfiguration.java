@@ -1,10 +1,9 @@
 package com.java.samples.springboot.security.springbootsecurity.security;
 
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -22,9 +21,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.password("{noop}admin")
 			.roles("ADMIN");
 	}
-	
-	public PasswordEncoder getPasswordEncoder() {
+
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
 		
-		return NoOpPasswordEncoder.getInstance(); // This is for using password as clear text otherwise you have to use hashing 
+		// Need to configure from most restricted to least restricted
+		http.authorizeRequests()
+			.antMatchers("/admin").hasRole("ADMIN") // Only users with ADMIN role can access this page
+			.antMatchers("/user").hasAnyRole("ADMIN", "USER") // Only users with USER role can access this page
+			.antMatchers("/").permitAll() // Root URL - this means all can access the home page
+			.and()
+			.formLogin();
 	}
 }
