@@ -14,12 +14,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		// Set your configuration on the auth object
 		auth.inMemoryAuthentication()
 			.withUser("user")
-			.password("{noop}user")
+			.password("{noop}user") // with {noop} passwords will store as clear text
 			.roles("USER")
-			.and()
+			.and() // and will return same object with same status. in here it is inMemoryAuthentication. so we can do the method chaining
 			.withUser("admin")
 			.password("{noop}admin")
-			.roles("ADMIN");
+			.roles("ADMIN"); // calling methods like this called as method chaining
 	}
 
 	@Override
@@ -27,10 +27,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		
 		// Need to configure from most restricted to least restricted
 		http.authorizeRequests()
-			.antMatchers("/admin").hasRole("ADMIN") // Only users with ADMIN role can access this page
-			.antMatchers("/user").hasAnyRole("ADMIN", "USER") // Only users with USER role can access this page
-			.antMatchers("/").permitAll() // Root URL - this means all can access the home page
+			.antMatchers("/admin").hasRole("ADMIN") // only users with ADMIN role can access this page
+			.antMatchers("/user").hasAnyRole("ADMIN", "USER") // only users with USER role can access this page
+			.antMatchers("/").permitAll() // root URL - this means all can access the home page
 			.and()
-			.formLogin();
+			.formLogin(); // this means form based login
 	}
 }
