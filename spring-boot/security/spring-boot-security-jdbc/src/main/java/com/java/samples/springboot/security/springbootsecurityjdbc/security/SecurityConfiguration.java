@@ -18,7 +18,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		// Set your configuration on the auth object
 		auth.jdbcAuthentication()
-			.dataSource(dataSource); // for the embedded databases spring will automatically creates a datasource		
+			.dataSource(dataSource) // for the embedded databases spring will automatically creates a datasource
+			.usersByUsernameQuery("SELECT username, password, enabled FROM my_users WHERE username = ?") // this method will use the custom query for take the user details
+			.authoritiesByUsernameQuery("SELECT username, authority FROM my_authorities WHERE username = ?"); // this method will use the custom query for take the role details		
 	}
 
 	@Override
