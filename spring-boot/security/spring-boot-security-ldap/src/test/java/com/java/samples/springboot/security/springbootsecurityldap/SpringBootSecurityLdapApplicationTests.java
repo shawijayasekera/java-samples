@@ -1,0 +1,13 @@
+package com.java.samples.springboot.security.springbootsecurityldap;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class SpringBootSecurityLdapApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
