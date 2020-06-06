@@ -23,7 +23,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-		// Need to configure from most restricted to least restricted
+		// need to configure from most restricted to least restricted
 		http.authorizeRequests()
 			.antMatchers("/admin").hasRole("ADMIN") // only users with ADMIN role can access this page
 			.antMatchers("/user").hasAnyRole("ADMIN", "USER") // only users with USER role can access this page
