@@ -9,5 +9,4 @@ public class SpringBootSecurityJpaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootSecurityJpaApplication.class, args);
 	}
-
 }
