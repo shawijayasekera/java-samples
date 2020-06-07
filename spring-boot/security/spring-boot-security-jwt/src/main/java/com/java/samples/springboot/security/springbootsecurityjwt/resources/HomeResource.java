@@ -41,7 +41,7 @@ public class HomeResource {
 		try {
 			
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-					authenticationRequest.getUserName(), authenticationRequest.getPassword())); // UsernamePasswordAuthenticationToken is the standard token that spring MVC uses for username and password
+					authenticationRequest.getUserName(), authenticationRequest.getPassword())); // UsernamePasswordAuthenticationToken is the standard token that spring MVC uses for username and password. uses to do the authentication
 		} catch (BadCredentialsException e) {
 
 			throw new Exception("Incorrect username or password");

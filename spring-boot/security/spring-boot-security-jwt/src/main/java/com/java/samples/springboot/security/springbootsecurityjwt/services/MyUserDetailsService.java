@@ -13,6 +13,6 @@ public class MyUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		return new User("user", "{noop}user", new ArrayList<>());
+		return new User("user", "{noop}user", new ArrayList<>()); // you need to change this for connecting to the actual user store
 	}
 }
