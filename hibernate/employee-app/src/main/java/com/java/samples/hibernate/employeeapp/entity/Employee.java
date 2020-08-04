@@ -3,6 +3,7 @@ package com.java.samples.hibernate.employeeapp.entity;
 
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,20 +20,41 @@ import javax.persistence.Table;
 @Table(name = "employee", catalog = "employee_db")
 public class Employee implements java.io.Serializable {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
 	private int id;
+
+	@Column(name = "first_Name", length = 30)
 	private String firstName;
+
+	@Column(name = "last_Name", length = 30)
 	private String lastName;
+
+	@Column(name = "salary")
 	private Integer salary;
-	private Set<Phone> phones = new HashSet<Phone>(0);
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee", cascade = CascadeType.ALL) // without CascadeType.ALL child rows are not inserting
+	private Set<Phone> phones;
 
 	public Employee() {
+
 	}
 
 	public Employee(int id) {
+
 		this.id = id;
 	}
 
+	public Employee(String firstName, String lastName, int salary) {
+
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.salary = salary;
+	}
+
 	public Employee(int id, String firstName, String lastName, Integer salary, Set<Phone> phones) {
+
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -40,10 +62,8 @@ public class Employee implements java.io.Serializable {
 		this.phones = phones;
 	}
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
+
 		return this.id;
 	}
 
@@ -51,40 +71,54 @@ public class Employee implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@Column(name = "first_Name", length = 30)
 	public String getFirstName() {
+
 		return this.firstName;
 	}
 
 	public void setFirstName(String firstName) {
+
 		this.firstName = firstName;
 	}
 
-	@Column(name = "last_Name", length = 30)
 	public String getLastName() {
+
 		return this.lastName;
 	}
 
 	public void setLastName(String lastName) {
+
 		this.lastName = lastName;
 	}
 
-	@Column(name = "salary")
 	public Integer getSalary() {
+
 		return this.salary;
 	}
 
 	public void setSalary(Integer salary) {
+
 		this.salary = salary;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "employee")
 	public Set<Phone> getPhones() {
+
 		return this.phones;
 	}
 
 	public void setPhones(Set<Phone> phones) {
+
 		this.phones = phones;
 	}
 
+	public void addPhone(Phone phone) { // without this helper method child rows are inserting without parent id
+		
+		if (phones == null) {
+			
+			phones = new HashSet<>();
+		}
+		
+		phone.setEmployee(this);
+		phones.add(phone);
+	}
 }

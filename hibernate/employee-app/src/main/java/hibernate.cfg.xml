@@ -14,5 +14,7 @@
 		<property name="hibernate.current_session_context_class">thread</property>
 		<property name="hibernate.hbm2ddl.auto">validate</property>
 		<!-- <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property> -->
+		<mapping class="com.java.samples.hibernate.employeeapp.entity.Employee"/>
+		<mapping class="com.java.samples.hibernate.employeeapp.entity.Phone"/>
 	</session-factory>
 </hibernate-configuration>

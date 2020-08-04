@@ -18,51 +18,66 @@ import javax.persistence.Table;
 @Table(name = "phone", catalog = "employee_db")
 public class Phone implements java.io.Serializable {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "id", unique = true, nullable = false)
 	private int id;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "employee_id")
 	private Employee employee;
+	
+	@Column(name = "phone_number", length = 12)
 	private String phoneNumber;
 
 	public Phone() {
+		
 	}
 
 	public Phone(int id) {
+		
 		this.id = id;
 	}
+	
+	public Phone(String PhoneNumber) {
+		
+        this.phoneNumber = PhoneNumber;
+    }
 
 	public Phone(int id, Employee employee, String phoneNumber) {
+		
 		this.id = id;
 		this.employee = employee;
 		this.phoneNumber = phoneNumber;
 	}
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
 	public int getId() {
+		
 		return this.id;
 	}
 
 	public void setId(int id) {
+		
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "employee_id")
 	public Employee getEmployee() {
+		
 		return this.employee;
 	}
 
 	public void setEmployee(Employee employee) {
+		
 		this.employee = employee;
 	}
 
-	@Column(name = "phone_number", length = 12)
 	public String getPhoneNumber() {
+		
 		return this.phoneNumber;
 	}
 
 	public void setPhoneNumber(String phoneNumber) {
+		
 		this.phoneNumber = phoneNumber;
 	}
-
 }
