@@ -1,6 +1,5 @@
 package com.java.samples.hibernate.employeeapp;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
@@ -39,15 +38,15 @@ public class EmployeeApplication {
 		Integer empID = 0;
 
 		/* Add few employee records in database */
-		while (more.charAt(0) == 'y' || more.charAt(0) == 'Y') {
+		/*while (more.charAt(0) == 'y' || more.charAt(0) == 'Y') {
 
 			empID = employeeApplication.addEmployee();
 			System.out.println("More employees? (y/n)");
 			more = in.nextLine();
-		}
+		}*/
 
 		/* Update employee's records */
-		// employeeApplication.updateEmployee(65, 95000);
+		employeeApplication.updateEmployee(15, 380000);
 
 		/* Delete an employee from the database */
 		// HE.deleteEmployee(67);
@@ -83,7 +82,7 @@ public class EmployeeApplication {
 			Employee employee = new Employee(fname, lname, salary);
 			employee.addPhone(new Phone(cell));
 			employee.addPhone(new Phone(hPhone));
-			
+
 			employeeID = (Integer) session.save(employee);
 			tx.commit();
 		} catch (HibernateException e) {
@@ -97,7 +96,7 @@ public class EmployeeApplication {
 
 			session.close();
 		}
-		
+
 		return employeeID;
 	}
 
@@ -138,6 +137,32 @@ public class EmployeeApplication {
 			e.printStackTrace();
 		} finally {
 
+			session.close();
+		}
+	}
+
+	/* Method to UPDATE salary for an employee */
+	public void updateEmployee(int employeeId, int salary) {
+
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+
+		try {
+
+			tx = session.beginTransaction();
+			Employee employee = (Employee) session.get(Employee.class, employeeId);
+			employee.setSalary(salary);
+			session.update(employee);
+			tx.commit();
+		} catch (HibernateException e) {
+
+			if (tx != null) {
+				
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+			
 			session.close();
 		}
 	}
