@@ -38,18 +38,18 @@ public class EmployeeApplication {
 		Integer empID = 0;
 
 		/* Add few employee records in database */
-		/*while (more.charAt(0) == 'y' || more.charAt(0) == 'Y') {
-
-			empID = employeeApplication.addEmployee();
-			System.out.println("More employees? (y/n)");
-			more = in.nextLine();
-		}*/
+		/*
+		 * while (more.charAt(0) == 'y' || more.charAt(0) == 'Y') {
+		 * 
+		 * empID = employeeApplication.addEmployee();
+		 * System.out.println("More employees? (y/n)"); more = in.nextLine(); }
+		 */
 
 		/* Update employee's records */
-		employeeApplication.updateEmployee(15, 380000);
+		//employeeApplication.updateEmployee(15, 380000);
 
 		/* Delete an employee from the database */
-		// HE.deleteEmployee(67);
+		employeeApplication.deleteEmployee(17);
 
 		/* List all employees */
 		employeeApplication.listEmployees();
@@ -157,12 +157,37 @@ public class EmployeeApplication {
 		} catch (HibernateException e) {
 
 			if (tx != null) {
-				
+
 				tx.rollback();
 			}
 			e.printStackTrace();
 		} finally {
-			
+
+			session.close();
+		}
+	}
+
+	/* Method to DELETE an employee from the records */
+	public void deleteEmployee(Integer EmployeeID) {
+
+		Session session = sessionFactory.openSession();
+		Transaction tx = null;
+
+		try {
+
+			tx = session.beginTransaction();
+			Employee employee = (Employee) session.get(Employee.class, EmployeeID);
+			session.delete(employee);
+			tx.commit();
+		} catch (HibernateException e) {
+
+			if (tx != null) {
+
+				tx.rollback();
+			}
+			e.printStackTrace();
+		} finally {
+
 			session.close();
 		}
 	}
