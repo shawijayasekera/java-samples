@@ -1,0 +1,40 @@
+{
+	"info": {
+		"_postman_id": "d71c11ca-39ad-4617-86d9-93488900ece7",
+		"name": "springboot-kafka-producer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Hiroshani\",\r\n    \"dept\" : \"QA\",\r\n    \"salary\" : 200000\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/springboot-kafka-producer/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"springboot-kafka-producer",
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
