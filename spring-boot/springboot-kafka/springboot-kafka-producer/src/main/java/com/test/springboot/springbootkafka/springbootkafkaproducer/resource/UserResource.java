@@ -16,7 +16,7 @@ public class UserResource {
 	@Autowired
 	KafkaTemplate<String, User> kafkaTemplate;
 	
-	private static final String TOPIC = "test_springboot_kafka_producer_topic";
+	private static final String TOPIC = "test_springboot_kafka_producer_user_topic";
 	
 	@PostMapping
 	public String publishMessage(@RequestBody User user) {
