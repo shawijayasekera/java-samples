@@ -6,6 +6,10 @@ public class User {
 	private String dept;
 	private Long salary;
 
+	public User() {
+
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -28,5 +32,10 @@ public class User {
 
 	public void setSalary(Long salary) {
 		this.salary = salary;
+	}
+
+	@Override
+	public String toString() {
+		return "User [name=" + name + ", dept=" + dept + ", salary=" + salary + "]";
 	}
 }
