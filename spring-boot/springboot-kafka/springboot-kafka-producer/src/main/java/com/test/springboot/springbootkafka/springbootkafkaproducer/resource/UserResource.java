@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.test.springboot.springbootkafka.springbootkafkaproducer.dto.User;
+import com.test.springboot.springbootkafka.springbootkafkaproducer.util.KafkaConfigDataHolder;
 
 @RestController
 @RequestMapping("/user")
@@ -16,12 +17,13 @@ public class UserResource {
 	@Autowired
 	KafkaTemplate<String, User> kafkaTemplate;
 	
-	private static final String TOPIC = "test_springboot_kafka_producer_user_topic";
+	@Autowired
+	KafkaConfigDataHolder kafkaConfigDataHolder;
 	
 	@PostMapping
 	public String publishMessage(@RequestBody User user) {
 		
-		kafkaTemplate.send(TOPIC, user);
+		kafkaTemplate.send(kafkaConfigDataHolder.getUserTopic(), user);
 		return "Published successfully";
 	}
 }
