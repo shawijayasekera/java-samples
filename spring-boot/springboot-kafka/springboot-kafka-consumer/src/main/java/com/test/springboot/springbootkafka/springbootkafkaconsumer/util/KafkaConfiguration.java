@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
@@ -17,13 +18,16 @@ import org.springframework.kafka.core.ConsumerFactory;
 @Configuration
 public class KafkaConfiguration {
 
+	@Autowired
+	KafkaConfigDataHolder kafkaConfigDataHolder;
+	
 	@Bean
 	public ConsumerFactory<String, User> userConsumerFactory() {
 
 		Map<String, Object> config = new HashMap<>();
 
-		config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
-		config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_json");
+		config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaConfigDataHolder.getKafkaServer());
+		config.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaConfigDataHolder.getUserTopicGroupId());
 		config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 		config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
 
@@ -43,8 +47,8 @@ public class KafkaConfiguration {
 	public ConsumerFactory<String, String> consumerFactory() {
 		Map<String, Object> config = new HashMap<>();
 
-		config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
-		config.put(ConsumerConfig.GROUP_ID_CONFIG, "group_id");
+		config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaConfigDataHolder.getKafkaServer());
+		config.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaConfigDataHolder.getStringTopicGroupId());
 		config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 		config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 
