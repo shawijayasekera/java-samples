@@ -9,6 +9,8 @@ public class Greeter {
 
 	public static void main(String[] args) {
 
+		Greeter greeter = new Greeter();
+
 		/*
 		 * Following two are almost same. But the difference is we are implementing the
 		 * interface by implementing the function in lambda and helloWorldGreeting we
@@ -18,16 +20,16 @@ public class Greeter {
 		Greeting helloWorldGreeting = new HelloWorldGreeting();
 		Greeting lambdaHelloWorldGreeting = () -> System.out.println("Hello World");
 
-		helloWorldGreeting.perform();
-		lambdaHelloWorldGreeting.perform();
+		greeter.greet(helloWorldGreeting);
+		greeter.greet(lambdaHelloWorldGreeting);
 
 		System.out.print("\n");
 
 		Greeting javaGreeting = new JavaGreeting();
 		Greeting lambdaJavaGreeting = () -> System.out.println("Hello Java");
 
-		javaGreeting.perform();
-		lambdaJavaGreeting.perform();
+		greeter.greet(javaGreeting);
+		greeter.greet(lambdaJavaGreeting);
 
 		System.out.print("\n");
 
@@ -48,7 +50,7 @@ public class Greeter {
 
 		Greeting lambdaSpringGreeting = () -> System.out.println("Hello Spring");
 
-		innerSpringGreeting.perform();
-		lambdaSpringGreeting.perform();
+		greeter.greet(innerSpringGreeting);
+		greeter.greet(lambdaSpringGreeting);
 	}
 }
