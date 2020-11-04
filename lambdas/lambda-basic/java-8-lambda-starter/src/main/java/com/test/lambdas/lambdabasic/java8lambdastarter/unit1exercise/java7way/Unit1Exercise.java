@@ -34,9 +34,12 @@ public class Unit1Exercise {
 		// Step 3: Create a method that prints all people that have name beginning with C
 		System.out.print("\n");
 		System.out.println("Printing all people that have last name beginning with C");
+		
+		// Using method with if condition
 		printLastNameBeginningWithC(people);
 		
 		System.out.print("\n");
+		// Using interface
 		printConditionally(people, new Condition() {
 			
 			@Override
