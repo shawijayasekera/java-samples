@@ -3,14 +3,9 @@ package com.test.lambdas.lambdabasic.java8lambdastarter.unit1exercise.java8way.f
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-/* In this example we are not using previously used Condition interface. 
- * Because java 8 already provided interface match to the Condition. 
- * Therefore we don't need to write same interface like that.
- * We are using interface called Predicate. 
- * Like the Condition interface it has only one abstract method, which takes the object type and returns the boolean value 
- */
 public class Unit1Exercise {
 
 	public static void main(String[] args) {
@@ -38,16 +33,43 @@ public class Unit1Exercise {
 		 */
 		System.out.print("\n");
 		printConditionally(people, p -> true);
+		
+		/* In this we are using performConditionally method witch takes another lambda. 
+		 * With we can change what should print dynamically 
+		 * 1st argument : object list
+		 * 2nd argument : condition that should perform
+		 * 3rd argument : what should perform according to the condition
+		 */
+		System.out.print("\n");
+		performConditionally(people, p -> true, p -> System.out.println(p));
 
 		// Step 3: Create a method that prints all people that have name beginning with C
 		System.out.print("\n");
 		System.out.println("Printing all people that have last name beginning with C");
 		printConditionally(people, p -> p.getLastName().startsWith("C"));
 		
+		/* In this we are using performConditionally method witch takes another lambda. 
+		 * With we can change what should print dynamically 
+		 * 1st argument : object list
+		 * 2nd argument : condition that should perform
+		 * 3rd argument : what should perform according to the condition
+		 */
+		System.out.print("\n");
+		performConditionally(people, p -> p.getLastName().startsWith("C"), p -> System.out.println(p.getLastName()));
+		
 		// Step 3: Create a method that prints all people that have name beginning with C
 		System.out.print("\n");
 		System.out.println("Printing all people that have first name beginning with C");
 		printConditionally(people, p -> p.getFirstName().startsWith("C"));
+		
+		/* In this we are using performConditionally method witch takes another lambda. 
+		 * With we can change what should print dynamically 
+		 * 1st argument : object list
+		 * 2nd argument : condition that should perform
+		 * 3rd argument : what should perform according to the condition
+		 */
+		System.out.print("\n");
+		performConditionally(people, p -> p.getFirstName().startsWith("C"), p -> System.out.println(p.getFirstName()));
 	}
 
 	private static void printAll(List<Person> people) {
@@ -65,6 +87,17 @@ public class Unit1Exercise {
 			if (predicate.test(person)) {
 				
 				System.out.println(person);
+			}
+		}
+	}
+	
+	private static void performConditionally(List<Person> people, Predicate<Person> predicate, Consumer<Person> consumer) {
+
+		for (Person person : people) {
+			
+			if (predicate.test(person)) {
+				
+				consumer.accept(person);
 			}
 		}
 	}
