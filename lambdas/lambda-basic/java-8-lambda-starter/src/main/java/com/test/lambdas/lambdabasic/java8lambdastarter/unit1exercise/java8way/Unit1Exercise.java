@@ -2,7 +2,6 @@ package com.test.lambdas.lambdabasic.java8lambdastarter.unit1exercise.java8way;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class Unit1Exercise {
