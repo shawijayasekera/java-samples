@@ -52,5 +52,10 @@ public class Greeter {
 
 		greeter.greet(innerSpringGreeting);
 		greeter.greet(lambdaSpringGreeting);
+		
+		System.out.print("\n");
+		System.out.println("Add operation using lambda expression");
+		MyAdd myAdd = (a, b) -> a + b;
+		System.out.println(myAdd.add(10, 20));
 	}
 }
