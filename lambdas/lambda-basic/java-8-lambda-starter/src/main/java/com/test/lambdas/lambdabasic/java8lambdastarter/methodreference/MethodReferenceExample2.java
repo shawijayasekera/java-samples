@@ -19,11 +19,12 @@ public class MethodReferenceExample2 {
 
 		/*
 		 * Following two implementations are also same. When you have one input argument
-		 * and you are calling the method using same argument you can use method
-		 * reference.
+		 * in lambda expression and you are calling the method using same argument you
+		 * can use method reference.
 		 * 
-		 * However println method is not a static method and it is instance method. Therefore we have to take the
-		 * instance part (System.out) first and then call the println method using ::
+		 * However println method is not a static method and it is instance method.
+		 * Therefore we have to take the instance part (System.out) first and then call
+		 * the println method using ::
 		 */
 		performConditionally(people, p -> true, p -> System.out.println(p));
 		

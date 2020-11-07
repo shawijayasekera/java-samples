@@ -7,8 +7,8 @@ public class MethodReferenceExample1 {
 		/*
 		 * Following two implementations are same. 2nd one call as method reference
 		 * 
-		 * When you have an expression which takes no input arguments and it is call
-		 * method without no arguments, we can replace that with method reference.
+		 * When you have an lambda expression which takes no input arguments and it is call
+		 * method without arguments, we can replace that with method reference.
 		 * 
 		 * Just think this as alternate syntax.
 		 */
