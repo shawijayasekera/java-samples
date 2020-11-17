@@ -1,8 +1,8 @@
-package com.test.concurrency.concurrencybasic.concurrencystarter.primenocalculator.concurrency;
+package com.test.concurrency.concurrencybasic.concurrencystarter.primenocalculator.daemon;
 
 import java.util.Scanner;
 
-public class PrimeNumberNoConcurrencyExample {
+public class PrimeNumberConcurrencyExample {
 
 	public static void main(String[] args) {
 
@@ -24,12 +24,14 @@ public class PrimeNumberNoConcurrencyExample {
 
 					int number = PrimeNumberUtil.calculatePrime(n);
 
-					System.out.println("\n Result: ");
+					System.out.println("\n Result: "); 
 					System.out.println("\n Value of " + n + "th prime: " + number);
 				}
 			};
 			
 			Thread t = new Thread(r);
+			// Configure as daemon thread
+			t.setDaemon(true);
 			t.start();
 		}
 	}
