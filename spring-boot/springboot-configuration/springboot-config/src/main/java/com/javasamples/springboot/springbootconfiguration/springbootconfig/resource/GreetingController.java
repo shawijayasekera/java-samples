@@ -1,6 +1,7 @@
 package com.javasamples.springboot.springbootconfiguration.springbootconfig.resource;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +30,13 @@ public class GreetingController {
 	@Value("${app.list.values}")
 	private List<String> appListValues;
 
+	/*
+	 * When we want to get key-value pairs, we can set it to the Map. We need to use
+	 * # sign to get values as key-value pair. Using # is called as SPEL.
+	 */
+	@Value("#{${app.db.values}}")
+	private Map<String, String> appDBMapValues;
+
 	@GetMapping("/greeting")
 	public String greeting() {
 
@@ -46,10 +54,16 @@ public class GreetingController {
 
 		return defaultAppGreeting;
 	}
-	
+
 	@GetMapping("/valuelist")
 	public String valueList() {
 
 		return "" + appListValues;
+	}
+
+	@GetMapping("/valuemap")
+	public String valueMap() {
+
+		return "" + appDBMapValues;
 	}
 }
