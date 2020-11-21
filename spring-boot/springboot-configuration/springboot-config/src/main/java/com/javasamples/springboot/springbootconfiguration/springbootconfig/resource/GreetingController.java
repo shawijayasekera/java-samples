@@ -13,6 +13,13 @@ public class GreetingController {
 	@Value("${app.description}")
 	private String appGreeting;
 
+	/*
+	 * When there are no any required property found it will set to the default
+	 * value "HI".
+	 */
+	@Value("${app.default.description: Hi}")
+	private String defaultAppGreeting;
+
 	@GetMapping("/greeting")
 	public String greeting() {
 
@@ -23,5 +30,11 @@ public class GreetingController {
 	public String appGreeting() {
 
 		return appGreeting;
+	}
+
+	@GetMapping("/defaultappgreeting")
+	public String defaultAppGreeting() {
+
+		return defaultAppGreeting;
 	}
 }
