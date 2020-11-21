@@ -1,5 +1,7 @@
 package com.javasamples.springboot.springbootconfiguration.springbootconfig.resource;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +22,13 @@ public class GreetingController {
 	@Value("${app.default.description: Hi}")
 	private String defaultAppGreeting;
 
+	/*
+	 * When we want to get list of values, we can set it to the List. Values should
+	 * be , separated.
+	 */
+	@Value("${app.list.values}")
+	private List<String> appListValues;
+
 	@GetMapping("/greeting")
 	public String greeting() {
 
@@ -36,5 +45,11 @@ public class GreetingController {
 	public String defaultAppGreeting() {
 
 		return defaultAppGreeting;
+	}
+	
+	@GetMapping("/valuelist")
+	public String valueList() {
+
+		return "" + appListValues;
 	}
 }
