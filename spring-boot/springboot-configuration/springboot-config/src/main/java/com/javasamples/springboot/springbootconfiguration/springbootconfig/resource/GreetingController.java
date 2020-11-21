@@ -36,6 +36,9 @@ public class GreetingController {
 	 */
 	@Value("#{${app.db.values}}")
 	private Map<String, String> appDBMapValues;
+	
+	@Value("Constant greeting")
+	private String constantGreeting;
 
 	@GetMapping("/greeting")
 	public String greeting() {
@@ -65,5 +68,11 @@ public class GreetingController {
 	public String valueMap() {
 
 		return "" + appDBMapValues;
+	}
+	
+	@GetMapping("/constantgreeting")
+	public String constantGreeting1() {
+
+		return constantGreeting;
 	}
 }
