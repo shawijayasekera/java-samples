@@ -2,10 +2,11 @@ package com.javasamples.springboot.springbootconfiguration.springbootconfig.reso
 
 import java.util.List;
 import java.util.Map;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.javasamples.springboot.springbootconfiguration.springbootconfig.util.DBSettings;
 
 @RestController
 public class GreetingController {
@@ -36,9 +37,12 @@ public class GreetingController {
 	 */
 	@Value("#{${app.db.values}}")
 	private Map<String, String> appDBMapValues;
-	
+
 	@Value("Constant greeting")
 	private String constantGreeting;
+
+	@Autowired
+	private DBSettings dbSettings;
 
 	@GetMapping("/greeting")
 	public String greeting() {
@@ -69,10 +73,16 @@ public class GreetingController {
 
 		return "" + appDBMapValues;
 	}
-	
+
 	@GetMapping("/constantgreeting")
-	public String constantGreeting1() {
+	public String constantGreeting() {
 
 		return constantGreeting;
+	}
+
+	@GetMapping("/dbconfigurations")
+	public String dbConfigurations() {
+
+		return " " + dbSettings.getConnection() + " " + dbSettings.getHost() + " " + dbSettings.getPort();
 	}
 }
