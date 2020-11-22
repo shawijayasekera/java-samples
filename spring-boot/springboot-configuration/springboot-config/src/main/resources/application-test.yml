@@ -1,0 +1,18 @@
+my: 
+ greeting: HelloWorld
+
+app:
+ name: My app
+ description: Welcome to ${app.name}
+ list:
+  values: one,two,three
+ db:
+  values: "{connectionString: 'http://__________', userName: 'foo', password: 'foopass'}"
+  
+db: 
+ connection: "{connectionString: 'http://test/__________', userName: 'testfoo', password: 'testfoopass'}"
+ host: 129.0.0.1
+ port: 2400
+ 
+#enable actuator endpoints
+management.endpoints.web.exposure.include: "*"

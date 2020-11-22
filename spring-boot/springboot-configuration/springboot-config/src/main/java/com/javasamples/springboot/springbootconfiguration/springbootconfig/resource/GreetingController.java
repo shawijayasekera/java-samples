@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.javasamples.springboot.springbootconfiguration.springbootconfig.util.DBSettings;
@@ -43,6 +44,9 @@ public class GreetingController {
 
 	@Autowired
 	private DBSettings dbSettings;
+	
+	@Autowired
+	private Environment environment;
 
 	@GetMapping("/greeting")
 	public String greeting() {
@@ -84,5 +88,11 @@ public class GreetingController {
 	public String dbConfigurations() {
 
 		return " " + dbSettings.getConnection() + " " + dbSettings.getHost() + " " + dbSettings.getPort();
+	}
+	
+	@GetMapping("/envdetails")
+	public String envDetails() {
+
+		return environment.toString(); 
 	}
 }
