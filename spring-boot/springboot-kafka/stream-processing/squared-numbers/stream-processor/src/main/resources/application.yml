@@ -1,0 +1,13 @@
+spring.cloud.stream:
+  function:
+    definition: evenNumberSquareProcessor # Topic name
+  bindings: # Using in we consume the data, then to write we use out
+    evenNumberSquareProcessor-in-0:
+      destination: numbers
+    evenNumberSquareProcessor-out-0:
+      destination: squaredNumbers
+  kafka:
+    binder:
+      brokers:
+        - localhost:9091
+        - localhost:9092
