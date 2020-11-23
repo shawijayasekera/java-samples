@@ -1,0 +1,19 @@
+spring.cloud.stream:
+  function:
+    definition: numberProducer # where you provide the list of bean names (; separated)
+  bindings:
+    numberProducer-out-0:
+      destination: numbers # configures where the data has to go. out indicates that Spring Boot has to write the data into the Kafka topic. As you would have guessed, to read the data, simply use in
+      producer:
+        use-native-encoding: true
+  kafka:
+    bindings:
+      numberProducer-out-0:
+        producer:
+          configuration:
+            value:
+              serializer: org.apache.kafka.common.serialization.LongSerializer
+    binder:
+      brokers:
+        - localhost:9091
+        - localhost:9092
