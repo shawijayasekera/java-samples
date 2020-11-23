@@ -1,13 +1,17 @@
+server:
+  port : 8081
+
 spring.cloud.stream:
   function:
-    definition: evenNumberSquareProcessor # Topic name
+    definition: evenNumberSquareProcessor # spring cloud function bean name
   bindings: # Using in we consume the data, then to write we use out
     evenNumberSquareProcessor-in-0:
-      destination: numbers
+      destination: numbers # Topic name
     evenNumberSquareProcessor-out-0:
-      destination: squaredNumbers
+      destination: squaredNumbers # Topic name
   kafka:
     binder:
       brokers:
-        - localhost:9091
         - localhost:9092
+        - localhost:9093
+        - localhost:9094

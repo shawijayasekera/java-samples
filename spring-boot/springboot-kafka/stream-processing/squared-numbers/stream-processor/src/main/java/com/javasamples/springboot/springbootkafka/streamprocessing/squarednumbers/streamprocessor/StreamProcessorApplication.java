@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class StreamProcessorApplication {
 
 	public static void main(String[] args) {
+		
 		SpringApplication.run(StreamProcessorApplication.class, args);
 	}
-
 }
