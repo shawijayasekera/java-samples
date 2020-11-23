@@ -1,0 +1,11 @@
+spring.cloud.stream:
+  function:
+    definition: squaredNumberConsumer # spring cloud function bean name
+  bindings:
+    squaredNumberConsumer-in-0: # To consume the data use in
+      destination: squaredNumbers # topic name
+  kafka:
+    binder:
+      brokers:
+        - localhost:9091
+        - localhost:9092
