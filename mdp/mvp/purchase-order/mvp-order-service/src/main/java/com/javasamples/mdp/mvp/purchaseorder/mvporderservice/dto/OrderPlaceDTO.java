@@ -1,6 +1,6 @@
 package com.javasamples.mdp.mvp.purchaseorder.mvporderservice.dto;
 
-public class OrderCommandDTO {
+public class OrderPlaceDTO {
 
 	private int userIndex;
 	private int productIndex;
