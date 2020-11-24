@@ -1,5 +1,13 @@
 package com.javasamples.mdp.cqrs.purchaseorder.orderservice.service;
 
+import java.util.List;
+import com.javasamples.mdp.cqrs.purchaseorder.orderservice.dto.PurchaseOrderSummaryDTO;
+
 public interface OrderQueryService {
 
+	List<PurchaseOrderSummaryDTO> getSaleSummaryGroupByState();
+
+	PurchaseOrderSummaryDTO getSaleSummaryByState(String state);
+
+	double getTotalSale();
 }
