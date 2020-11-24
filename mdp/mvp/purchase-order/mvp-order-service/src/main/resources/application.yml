@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mvp-purchase-order
+    username: postgres
+    password: 1qaz2wsx@

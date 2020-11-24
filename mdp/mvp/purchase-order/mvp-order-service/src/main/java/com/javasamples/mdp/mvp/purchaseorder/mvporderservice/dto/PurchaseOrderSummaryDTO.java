@@ -5,14 +5,6 @@ public class PurchaseOrderSummaryDTO {
 	private String state;
 	private double totalSale;
 
-	public PurchaseOrderSummaryDTO() {
-	}
-
-	public PurchaseOrderSummaryDTO(String state, double totalSale) {
-		this.state = state;
-		this.totalSale = totalSale;
-	}
-
 	public String getState() {
 		return state;
 	}

@@ -16,7 +16,6 @@ public class PurchaseOrder {
 
 	private Long userId;
 	private Long productId;
-	private Date orderDate;
 
 	public Long getId() {
 		return id;
@@ -40,13 +39,5 @@ public class PurchaseOrder {
 
 	public void setProductId(Long productId) {
 		this.productId = productId;
-	}
-
-	public Date getOrderDate() {
-		return orderDate;
-	}
-
-	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
 	}
 }
