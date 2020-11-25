@@ -1,0 +1,73 @@
+{
+	"info": {
+		"_postman_id": "3aa6df21-ad7d-4ee7-9b13-45138ab24178",
+		"name": "MVP Purchase order",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add Purchase Order",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userIndex\" : 1,\r\n    \"productIndex\" : 3\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/po/sale",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"po",
+						"sale"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Sales Summary",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userIndex\" : 1,\r\n    \"productIndex\" : 3\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/po/summary",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"po",
+						"summary"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
