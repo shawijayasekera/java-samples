@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CqrsOrderServiceApplication {
 
 	public static void main(String[] args) {
+		
 		SpringApplication.run(CqrsOrderServiceApplication.class, args);
 	}
-
 }

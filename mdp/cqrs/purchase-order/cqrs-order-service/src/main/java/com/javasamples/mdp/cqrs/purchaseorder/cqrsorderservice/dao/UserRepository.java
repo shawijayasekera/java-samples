@@ -1,0 +1,10 @@
+package com.javasamples.mdp.cqrs.purchaseorder.cqrsorderservice.dao;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import com.javasamples.mdp.cqrs.purchaseorder.cqrsorderservice.dto.domain.User;
+
+@Repository
+public interface UserRepository extends JpaRepository<User, Long>{
+
+}
