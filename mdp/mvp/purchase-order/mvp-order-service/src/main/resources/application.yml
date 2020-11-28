@@ -1,3 +1,7 @@
+server:
+ servlet:
+  context-path: /mvp-order-service
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/mvp-purchase-order

@@ -21,13 +21,14 @@
 					"raw": "{\r\n    \"userIndex\" : 1,\r\n    \"productIndex\" : 3\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/po/sale",
+					"raw": "http://localhost:8080/mvp-order-service/po/sale",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"mvp-order-service",
 						"po",
 						"sale"
 					]
@@ -54,13 +55,14 @@
 					"raw": "{\r\n    \"userIndex\" : 1,\r\n    \"productIndex\" : 3\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/po/summary",
+					"raw": "http://localhost:8080/mvp-order-service/po/summary",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
+						"mvp-order-service",
 						"po",
 						"summary"
 					]
