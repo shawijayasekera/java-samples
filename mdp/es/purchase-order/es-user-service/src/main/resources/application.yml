@@ -1,0 +1,21 @@
+server:
+ port: 8080
+ servlet:
+  context-path: /es-user-service
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/es-purchase-order
+    username: postgres
+    password: 1qaz2wsx@
+  kafka:
+    bootstrap-servers:
+      - localhost:9092
+      - localhost:9093
+      - localhost:9094
+    template:
+      default-topic: es-user-service-event
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.LongSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
