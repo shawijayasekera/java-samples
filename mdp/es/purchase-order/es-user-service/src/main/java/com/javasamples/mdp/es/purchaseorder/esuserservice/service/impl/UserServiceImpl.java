@@ -4,6 +4,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.javasamples.mdp.es.purchaseorder.esuserservice.dao.UsersRepository;
@@ -11,6 +12,7 @@ import com.javasamples.mdp.es.purchaseorder.esuserservice.dto.UserDTO;
 import com.javasamples.mdp.es.purchaseorder.esuserservice.dto.domain.Users;
 import com.javasamples.mdp.es.purchaseorder.esuserservice.service.UserService;
 
+@Service
 public class UserServiceImpl implements UserService {
 
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
