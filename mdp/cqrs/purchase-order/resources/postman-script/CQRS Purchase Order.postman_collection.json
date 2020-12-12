@@ -1,0 +1,140 @@
+{
+	"info": {
+		"_postman_id": "816bca3d-0dcb-4c20-8fec-4982e994a2d2",
+		"name": "CQRS Purchase Order",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Total Sales",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userIndex\" : 2,\r\n    \"productIndex\" : 1\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost/cqrs-order-service/po/total-sale",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"cqrs-order-service",
+						"po",
+						"total-sale"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Active Sales",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userIndex\" : 2,\r\n    \"productIndex\" : 1\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost/cqrs-order-service/po/summary/active",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"cqrs-order-service",
+						"po",
+						"summary",
+						"active"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Sales Summary",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userIndex\" : 2,\r\n    \"productIndex\" : 1\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost/cqrs-order-service/po/summary",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"cqrs-order-service",
+						"po",
+						"summary"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Order",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userIndex\" : 2,\r\n    \"productIndex\" : 2\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost/cqrs-order-service/po/sale",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"cqrs-order-service",
+						"po",
+						"sale"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
