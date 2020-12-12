@@ -16,6 +16,7 @@ public class MaterializedViewRefresher {
 	@Scheduled(fixedRate = 5000L)
 	public void refresh() {
 		
+		System.out.println("Running scheduler for refresh the materialized view");
 		this.entityManager.createNativeQuery("call refresh_mat_view();").executeUpdate();
 	}
 }

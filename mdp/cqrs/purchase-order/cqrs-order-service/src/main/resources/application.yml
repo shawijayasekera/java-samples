@@ -1,3 +1,8 @@
+server:
+ port: 8080
+ servlet:
+  context-path: /cqrs-order-service
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/cqrs-purchase-order
@@ -6,4 +11,4 @@ spring:
 
 app:
   write:
-    enabled: false
+    enabled: true
